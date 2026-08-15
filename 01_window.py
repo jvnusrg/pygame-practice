@@ -18,6 +18,12 @@ paddle_width = 15
 paddle_height = 100
 paddle_speed =5
 
+paddle2_x = 605
+paddle2_y = 200
+paddle2_width = 15
+paddle2_height = 100
+paddle2_speed = 5
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -32,6 +38,22 @@ while running:
         paddle_y = paddle_y - paddle_speed
     if keys[pygame.K_s]:
         paddle_y = paddle_y + paddle_speed
+
+    if paddle_y < 0:
+        paddle_y = 0
+    if paddle_y + paddle_height > 480:
+        paddle_y = 480 - paddle_height
+
+    if keys[pygame.K_UP]:
+        paddle2_y = paddle2_y - paddle2_speed
+    if keys[pygame.K_DOWN]:
+        paddle2_y = paddle2_y + paddle2_speed
+
+    if paddle2_y < 0:
+        paddle2_y =0
+    if paddle2_y + paddle2_height > 480:
+        paddle2_y = 480 - paddle2_height
+        
     #if x <= 0 or x + width >= 640:
         #speed_x = speed_x * -1
     if y <=0 or y + height >= 480:
@@ -42,6 +64,8 @@ while running:
     pygame.draw.rect(screen, (200,200,60), (x, y, width, height))
 
     pygame.draw.rect(screen, (255,255,255),(paddle_x, paddle_y, paddle_width, paddle_height))
+
+    pygame.draw.rect(screen, (100,200,255),(paddle2_x, paddle2_y, paddle2_width, paddle2_height))
     pygame.display.flip()
 
 pygame.quit()
