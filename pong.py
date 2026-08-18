@@ -1,6 +1,7 @@
 import pygame
 
 pygame.init()
+clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((640,480))
 pygame.display.set_caption("My first Pygame Window")
@@ -9,8 +10,8 @@ x = 50
 y = 200
 width = 60
 height = 60
-speed_x = 3
-speed_y = 3
+speed_x = 1
+speed_y = 1
 
 paddle_x = 20
 paddle_y = 200
@@ -80,11 +81,14 @@ while running:
 
     screen.fill((20, 60, 30))
 
-    pygame.draw.rect(screen, (200,200,60), (x, y, width, height))
+    
+    pygame.draw.circle(screen, (200,200,60), (int(x + width // 2), int(y + height // 2)), width // 2)
 
     pygame.draw.rect(screen, (255,255,255),(paddle_x, paddle_y, paddle_width, paddle_height))
 
     pygame.draw.rect(screen, (100,200,255),(paddle2_x, paddle2_y, paddle2_width, paddle2_height))
     pygame.display.flip()
+
+    clock.tick(60)
 
 pygame.quit()
