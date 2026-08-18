@@ -76,7 +76,7 @@ while running:
         print("Left player scores!")
         x = 320
         y = 200
-        speed_x = speed_x * -1
+        speed_x = speed_x * -1   
 
     screen.fill((20, 60, 30))
 
