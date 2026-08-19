@@ -10,8 +10,8 @@ x = 50
 y = 200
 width = 60
 height = 60
-speed_x = 1
-speed_y = 1
+speed_x = 3
+speed_y = 3
 
 paddle_x = 20
 paddle_y = 200
