@@ -81,6 +81,8 @@ while running:
 
     screen.fill((20, 60, 30))
 
+    for dash_y in range (0, 480, 20):
+        pygame.draw.rect(screen, (255,255,255), (320-2, dash_y, 4, 10))
     
     pygame.draw.circle(screen, (200,200,60), (int(x + width // 2), int(y + height // 2)), width // 2)
 
