@@ -1,6 +1,7 @@
 import pygame
 
 pygame.init()
+font = pygame.font.Font(None, 50)
 clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((640,480))
@@ -24,6 +25,9 @@ paddle2_y = 200
 paddle2_width = 15
 paddle2_height = 100
 paddle2_speed = 5
+
+left_score = 0
+right_score = 0
 
 pause = False
 
@@ -75,6 +79,7 @@ while running:
             speed_x = speed_x * -1
 
         if x < 0:
+            right_score = right_score + 1
             print("Right player scores!")
             x = 320
             y = 200
@@ -82,11 +87,18 @@ while running:
 
         if x > 640:
             print("Left player scores!")
+            left_score = left_score + 1
             x = 320
             y = 200
             speed_x = speed_x * -1   
 
         screen.fill((20, 60, 30))
+
+        left_text = font.render(str(left_score), True,(255,255,255))
+        right_text = font.render(str(right_score),True, (255,255,255))
+
+        screen.blit(left_text,(270, 20))
+        screen.blit(right_text,(350,20))
 
         for dash_y in range (0, 480, 20):
             pygame.draw.rect(screen, (255,255,255), (320-2, dash_y, 4, 10))
