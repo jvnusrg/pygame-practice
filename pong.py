@@ -31,6 +31,10 @@ right_score = 0
 
 pause = False
 
+game_over = False
+winner = ""
+win_score = 5
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -41,7 +45,7 @@ while running:
             if event.key == pygame.K_SPACE:
                 pause = not pause
 
-    if not pause:
+    if not pause and not game_over:
         x = x + speed_x
         y = y + speed_y
 
@@ -91,25 +95,38 @@ while running:
             x = 320
             y = 200
             speed_x = speed_x * -1   
+        
+        if right_score >= win_score:
+            game_over = True
+            winner = "Right Player"
 
-        screen.fill((20, 60, 30))
+        if left_score >= win_score:
+            game_over = True
+            winner = "Left Player"
 
-        left_text = font.render(str(left_score), True,(255,255,255))
-        right_text = font.render(str(right_score),True, (255,255,255))
+    screen.fill((20, 60, 30))
 
-        screen.blit(left_text,(270, 20))
-        screen.blit(right_text,(350,20))
+    left_text = font.render(str(left_score), True,(255,255,255))
+    right_text = font.render(str(right_score),True, (255,255,255))
 
-        for dash_y in range (0, 480, 20):
-            pygame.draw.rect(screen, (255,255,255), (320-2, dash_y, 4, 10))
+    screen.blit(left_text,(270, 20))
+    screen.blit(right_text,(350,20))
+   
+    for dash_y in range (0, 480, 20):
+        pygame.draw.rect(screen, (255,255,255), (320-2, dash_y, 4, 10))
     
-        pygame.draw.circle(screen, (200,200,60), (int(x + width // 2), int(y + height // 2)), width // 2)
+    pygame.draw.circle(screen, (200,200,60), (int(x + width // 2), int(y + height // 2)), width // 2)
 
-        pygame.draw.rect(screen, (255,255,255),(paddle_x, paddle_y, paddle_width, paddle_height))
+    pygame.draw.rect(screen, (255,255,255),(paddle_x, paddle_y, paddle_width, paddle_height))
 
-        pygame.draw.rect(screen, (100,200,255),(paddle2_x, paddle2_y, paddle2_width, paddle2_height))
-        pygame.display.flip()
+    pygame.draw.rect(screen, (100,200,255),(paddle2_x, paddle2_y, paddle2_width, paddle2_height))
 
-        clock.tick(60)
+    if game_over:
+            win_text = font.render(winner + " Wins!", True, (255,255,255))
+            screen.blit(win_text,(150,220))
+
+    pygame.display.flip()
+
+    clock.tick(60)
 
 pygame.quit()
