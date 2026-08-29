@@ -35,6 +35,8 @@ game_over = False
 winner = ""
 win_score = 5
 
+in_menu = True
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -45,7 +47,23 @@ while running:
             if event.key == pygame.K_SPACE:
                 pause = not pause
 
-    if not pause and not game_over:
+            if event.key == pygame.K_1:
+                speed_x = 3
+                speed_y = 3
+                in_menu = False
+
+            if event.key == pygame.K_2:
+                speed_x = 5
+                speed_y = 5
+                in_menu = False
+
+            if event.key == pygame.K_3:
+                speed_x = 7
+                speed_y = 7
+                in_menu = False
+        
+
+    if not pause and not game_over and not in_menu:
         x = x + speed_x
         y = y + speed_y
 
@@ -124,6 +142,12 @@ while running:
     if game_over:
             win_text = font.render(winner + " Wins!", True, (255,255,255))
             screen.blit(win_text,(150,220))
+
+    if in_menu:
+        line1 = font.render("Select Difficulty", True, (255,255,255))
+        line2 = font.render("1 = Easy 2 = Medium 3 = Hard", True, (255,255,255))
+        screen.blit(line1, (180,180))
+        screen.blit(line2, (80,240))
 
     pygame.display.flip()
 
