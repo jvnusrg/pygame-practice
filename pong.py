@@ -1,6 +1,10 @@
 import pygame
 
 pygame.init()
+pygame.mixer.init()
+hit_sound = pygame.mixer.Sound("sounds/hit.ogg")
+wall_sound = pygame.mixer.Sound("sounds/wall.wav")
+score_sound = pygame.mixer.Sound("sounds/score.ogg")
 font = pygame.font.Font(None, 50)
 clock = pygame.time.Clock()
 
@@ -92,6 +96,7 @@ while running:
             #speed_x = speed_x * -1
         if y <=0 or y + height >= 480:
             speed_y = speed_y * -1
+            wall_sound.play()
 
         ball_rect = pygame.Rect(x, y, width, height)
         paddle_rect = pygame.Rect(paddle_x, paddle_y, paddle_width, paddle_height)
@@ -99,6 +104,7 @@ while running:
 
         if ball_rect.colliderect(paddle_rect) or ball_rect.colliderect(paddle2_rect):
             speed_x = speed_x * -1
+            hit_sound.play()
 
         if x < 0:
             right_score = right_score + 1
@@ -106,6 +112,7 @@ while running:
             x = 320
             y = 200
             speed_x = speed_x * -1
+            score_sound.play()
 
         if x > 640:
             print("Left player scores!")
@@ -113,6 +120,7 @@ while running:
             x = 320
             y = 200
             speed_x = speed_x * -1   
+            score_sound.play()
         
         if right_score >= win_score:
             game_over = True
