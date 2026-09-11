@@ -11,6 +11,12 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((640,480))
 pygame.display.set_caption("My first Pygame Window")
 
+bg_color = (18,18,28)
+ball_color = (255,209,102)
+paddle1_color = (255,255,255)
+paddle2_color = (72,191,227)
+line_color = (60,60,80)
+
 x = 50
 y = 200
 width = 60
@@ -130,7 +136,7 @@ while running:
             game_over = True
             winner = "Left Player"
 
-    screen.fill((20, 60, 30))
+    screen.fill(bg_color)
 
     left_text = font.render(str(left_score), True,(255,255,255))
     right_text = font.render(str(right_score),True, (255,255,255))
@@ -139,13 +145,13 @@ while running:
     screen.blit(right_text,(350,20))
    
     for dash_y in range (0, 480, 20):
-        pygame.draw.rect(screen, (255,255,255), (320-2, dash_y, 4, 10))
+        pygame.draw.rect(screen, line_color, (320-2, dash_y, 4, 10))
     
-    pygame.draw.circle(screen, (200,200,60), (int(x + width // 2), int(y + height // 2)), width // 2)
+    pygame.draw.circle(screen, ball_color, (int(x + width // 2), int(y + height // 2)), width // 2)
 
-    pygame.draw.rect(screen, (255,255,255),(paddle_x, paddle_y, paddle_width, paddle_height))
+    pygame.draw.rect(screen, paddle1_color, (paddle_x, paddle_y, paddle_width, paddle_height), border_radius=6)
 
-    pygame.draw.rect(screen, (100,200,255),(paddle2_x, paddle2_y, paddle2_width, paddle2_height))
+    pygame.draw.rect(screen, paddle2_color, (paddle2_x, paddle2_y, paddle2_width, paddle2_height), border_radius=6)
 
     if game_over:
             win_text = font.render(winner + " Wins!", True, (255,255,255))
@@ -161,4 +167,4 @@ while running:
 
     clock.tick(60)
 
-pygame.quit()
+pygame.quit()      
