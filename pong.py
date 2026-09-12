@@ -47,6 +47,9 @@ win_score = 5
 
 in_menu = True
 
+trail=[]
+flash_timer = 0
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -76,6 +79,9 @@ while running:
     if not pause and not game_over and not in_menu:
         x = x + speed_x
         y = y + speed_y
+        trail.append((x,y))
+        if len(trail) > 10:
+            trail.pop(0)
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
@@ -119,6 +125,7 @@ while running:
             y = 200
             speed_x = speed_x * -1
             score_sound.play()
+            flash_timer = 10
 
         if x > 640:
             print("Left player scores!")
@@ -127,6 +134,7 @@ while running:
             y = 200
             speed_x = speed_x * -1   
             score_sound.play()
+            flash_timer = 10
         
         if right_score >= win_score:
             game_over = True
@@ -136,7 +144,11 @@ while running:
             game_over = True
             winner = "Left Player"
 
-    screen.fill(bg_color)
+    if flash_timer > 0:
+        screen.fill((255,255,255))
+        flash_timer = flash_timer - 1
+    else:
+        screen.fill(bg_color)
 
     left_text = font.render(str(left_score), True,(255,255,255))
     right_text = font.render(str(right_score),True, (255,255,255))
@@ -146,6 +158,9 @@ while running:
    
     for dash_y in range (0, 480, 20):
         pygame.draw.rect(screen, line_color, (320-2, dash_y, 4, 10))
+
+    for trail_x, trail_y in trail:
+        pygame.draw.circle(screen, line_color,(int(trail_x + width // 2),int(trail_y + height // 2)), width // 4)
     
     pygame.draw.circle(screen, ball_color, (int(x + width // 2), int(y + height // 2)), width // 2)
 
